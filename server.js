@@ -73,6 +73,19 @@ app.post("/api/saved", function(req, res) {
 	});
 });
 
+//route to delete an article from the database
+app.delete("/api/saved/:id", function(req, res) {
+	//find article and delete it from DB
+	Article.findByIdAndRemove(req.params.id, function(error, doc) {
+		if (error) {
+			console.log(error);
+		} else {
+			res.send(doc);
+		}
+	});
+});
+
+//route to add a note to an article and route to delete notes from articles
 //======================================================================================
 //Listener
 app.listen(PORT, function() {

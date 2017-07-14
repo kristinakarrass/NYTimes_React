@@ -3,7 +3,7 @@ var React = require("react");
 //include the link component from React Router to navigate within our application
 var Link = require("react-router").Link;
 //importing Helper for our AJAX requests to our API
-var helpers = require("./utils/helpers")
+var helpers = require("../utils/helpers")
 
 //creating the Main component
 var Main = React.createClass({
