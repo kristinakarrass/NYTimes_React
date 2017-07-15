@@ -14,7 +14,28 @@ var Search = React.createClass({
                   <h3 className="panel-title">Search for articles</h3>
                 </div>
                 <div className="panel-body">
-                  <p>Just to try I'll put some text here</p>
+<form className="form-horizontal">
+  <div className="form-group">
+    <label for="inputEmail3" className="col-sm-2 control-label">Search Term</label>
+    <div className="col-sm-10">
+      <input 
+        value={this.state.term}
+        type="text" 
+        className="form-control" 
+        id="term" 
+        placeholder="Search Term"
+        onChange={this.handleChange}
+        required
+        />
+    </div>
+  </div>
+
+  <div className="form-group">
+    <div className="col-sm-offset-2 col-sm-10">
+      <button type="submit" className="btn btn-default">Submit</button>
+    </div>
+  </div>
+</form>             
                 </div>
               </div>
             </div>

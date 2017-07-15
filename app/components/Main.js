@@ -24,19 +24,33 @@ var Main = React.createClass({
 		}.bind(this));
 	},
 
-	// componentDidUpdate: function() {
+	componentDidUpdate: function() {
 
-	// 	//run the query for the article
-	// 	helpers.runQuery(this.state.searchTerm).then(function(data) {
-	// 		if (data !== this.state.results) {
-	// 			console.log("Articles", data);
-	// 			this.setState({ results: data });
+		//run the query for the article
+		helpers.runQuery(this.state.searchTerm).then(function(data) {
+			if (data !== this.state.results) {
+				console.log("Articles", data);
+				this.setState({ results: data });
 
-	// 			//after we have a result...post the search to
-	// 		}
-	// 	})
-	// }
+				//after we have a result...post the search to
+				helpers.postHistory(this.state.searchTerm).then(function() {
+					console.log("Updated!");
 
+				//After we've done the post.. we get the updated history
+				helpers.getHistory().then(function(response){
+					console.log("Current History", response.data);
+
+					this.setState({ history: response.data });
+				}.bind(this));
+				}.bind(this));
+			}
+		}.bind(this));
+	},
+	//This function allows children to update the parent
+	setTerm: function(term) {
+		this.setState({ searchTerm: term });
+	},
+	//and here we render the function
 	render: function() {
 
 		return (

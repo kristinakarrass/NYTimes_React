@@ -11,7 +11,7 @@ var helper = {
 	runQuery: function(searchTerm) {
 		console.log(searchTerm);
 		//find articles
-		var queryURL = "https://api.nytimes.com/svc/search/v2/articlesearch.json?";
+		var queryURL = "https://api.nytimes.com/svc/search/v2/articlesearch.json?api-key=" + APIkey + "&q=" + serachTerm;
 		return axios.get(queryURL).then(function(response) {
 			console.log(response);
 		});
