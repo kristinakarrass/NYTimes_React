@@ -13,8 +13,15 @@ var Results = React.createClass({
                 <div className="panel-heading">
                   <h3 className="panel-title">Search Results</h3>
                 </div>
-                <div className="panel-body">
-                  <p>This is where we'll display the articles returned from our search</p>
+                <div className="panel-body text-center">
+                {this.props.history.map(function(article, i) {
+                  return(
+                    <div key={i} id={i}>
+                      <p>{article.title} - {article.date}</p>
+                      <a href='{article.articleURL}'>{article.articleURL}</a>
+                    </div>                  
+                    );
+                })}
                 </div>
               </div>
             </div>

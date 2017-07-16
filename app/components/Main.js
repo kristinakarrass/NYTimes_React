@@ -41,6 +41,7 @@ var Main = React.createClass({
 					console.log("Current History", response.data);
 
 					this.setState({ history: response.data });
+					
 				}.bind(this));
 				}.bind(this));
 			}

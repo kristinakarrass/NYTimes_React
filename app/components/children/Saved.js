@@ -14,7 +14,14 @@ var Saved = React.createClass({
                   <h3 className="panel-title">Saved Articles</h3>
                 </div>
                 <div className="panel-body">
-                  <p>If it works, the saved component will render</p>
+                 {this.props.history.map(function(articles, i) {
+                   return (
+                    <div key={i} id={i}>
+                     <p>{articles.title} - {articles.date}</p>
+                     <p>{articles.articleURL}</p>
+                    </div>
+                   );
+                 })}
                 </div>
               </div>
             </div>
