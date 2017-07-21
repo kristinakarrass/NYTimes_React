@@ -20,7 +20,7 @@ var Main = React.createClass({
 	              </button>
 	              <a className="navbar-brand" href="#">NYT Article Scrubber</a>
 	            </div>
-	 
+
 	            <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 	              <ul className="nav navbar-nav navbar-right">
 	                <li><button type="submit" className="btn btn-default">Article Search</button></li>
@@ -30,7 +30,11 @@ var Main = React.createClass({
 	            </div>
 	          </div>
 	        </nav>
-	        <div className="row">
+		    <div className="jumbotron">
+			  <h1>New York Times Article Scrubber</h1>
+			  <p>This is a one page React App, that lets you search for articles from the New York Times archives.</p>
+			</div>	        
+			<div className="row">
 	          {/*here we make sure the component is conditionally rendered - default component is the Search component*/}
 	          {this.props.children}
 	        </div>
