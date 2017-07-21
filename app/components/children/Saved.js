@@ -14,14 +14,17 @@ var Saved = React.createClass({
                   <h3 className="panel-title">Saved Articles</h3>
                 </div>
                 <div className="panel-body">
-                 {this.props.history.map(function(articles, i) {
+                 {this.props.results.map(function(articles, i) {
                    return (
                     <div key={i} id={i}>
-                     <p>{articles.title} - {articles.date}</p>
-                     <p>{articles.articleURL}</p>
+                      <li className = "list-group-item">
+                       <p>{articles.title} - {articles.date}</p>
+                       <a href={articles.articleURL} target="blank"><button className="btn btn-default">Read Article</button></a>
+                       <button className="btn btn-danger" onClick={this.handleClick(article)}>Save Article</button>
+                      </li>
                     </div>
                    );
-                 })}
+                 }.bind(this))}
                 </div>
               </div>
             </div>

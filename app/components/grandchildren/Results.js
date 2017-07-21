@@ -1,6 +1,27 @@
+//include React 
 var React = require("react");
 
+//include helpers functions 
+var helpers = require("../../utils/helpers");
 var Results = React.createClass({
+  getInitialState: function() {
+    return (
+       {
+        title: "",
+        articleURL: "",
+        date: ""
+       }
+    );
+  },
+
+  //this handles the click on submit to trigger search
+  handleClick: function(article) {
+    console.log(article);
+    //this function saves article in the database
+    helpers.postArticle(article.title, article.articleURL, article.date).then(function() {
+      console.log("posted");
+    });
+  },
 
 	//render the component
 	render: function() {
@@ -14,11 +35,11 @@ var Results = React.createClass({
                   <h3 className="panel-title">Search Results</h3>
                 </div>
                 <div className="panel-body text-center">
-                {this.props.history.map(function(article, i) {
+                {this.props.results.map(function(article, i) {
                   return(
                     <div key={i} id={i}>
                       <p>{article.title} - {article.date}</p>
-                      <a href='{article.articleURL}'>{article.articleURL}</a>
+                      <a href={article.articleURL}>{article.articleURL}</a>
                     </div>                  
                     );
                 })}

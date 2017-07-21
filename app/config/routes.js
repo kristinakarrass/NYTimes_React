@@ -31,9 +31,8 @@ module.exports = (
 
       {/* If user selects Info or Chat show the appropriate component */}    
       <Route path="search" component={Search} />
+      <Route path="results" component={Results} />      
       <Route path="saved" component={Saved} />
-      <Route path="results" component={Results} />
-      
       {/* If user selects any other path... we get the Info Route */}
       <IndexRoute component={Search} />
     </Route>

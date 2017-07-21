@@ -3,6 +3,7 @@ var express = require("express");
 var bodyParser = require("body-parser");
 var logger = require("morgan");
 var mongoose = require("mongoose");
+var path = require("path");
 
 //require Artilce Schema
 var Article = require("./models/Article");
@@ -20,7 +21,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.text());
 app.use(bodyParser.json({ type: "application/vnd.api+json" }));
 //serving static files from public directory
-app.use(express.static("public"));
+app.use(express.static(path.join(__dirname, "public")));
 
 //=====================================================================================
 //MongoDB configuration
@@ -46,12 +47,12 @@ app.get("/", function(req, res) {
 //Find all saved articles
 app.get("/api/saved", function(req, res) {
 	//find all records of saved articles -- don't know if I want to limit to 5
-	Artilce.find({}).sort([["date", "descending"]
+	Article.find({}).sort([["date", "descending"]
 		]).exec(function(err, doc) {
 			if (err) {
 				console.log(err);
 			} else {
-				er.send(doc);
+				res.send(doc);
 			}
 		});
 });
@@ -76,11 +77,18 @@ app.post("/api/saved", function(req, res) {
 //route to delete an article from the database
 app.delete("/api/saved/:id", function(req, res) {
 	//find article and delete it from DB
-	Article.findByIdAndRemove(req.params.id, function(error, doc) {
+	Article.findByIdAndRemove({ _id: req.params.id}, function(error, doc) {
 		if (error) {
 			console.log(error);
 		} else {
-			res.send(doc);
+			Article.find({}).sort([["date", "descending"]
+				]).exec(function(err, doc) {
+					if (err) {
+						console.log(err);
+					} else {
+					  res.send(doc);
+					}
+				});
 		}
 	});
 });
