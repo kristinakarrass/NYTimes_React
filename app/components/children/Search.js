@@ -13,9 +13,9 @@ var Search = React.createClass({
   
   //setting the initial state of the component
   getInitialState: function() {
-    return (
-      {results: {}}
-    );
+    return {
+      results: {}
+    };
   },
   //this function will be passed to the child component, so it can change the parent
   setTerm: function(newSearch, newStart, newEnd) {
@@ -26,7 +26,7 @@ var Search = React.createClass({
   },
 	//render the component
 	render: function() {
-
+   console.log("Results: ", this.state.results);
 		return (
         <div className="container">
           <ArticleSearch updateSearch={this.setTerm} />

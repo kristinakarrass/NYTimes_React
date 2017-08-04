@@ -20,7 +20,6 @@ var IndexRoute = router.IndexRoute;
 var Main = require("../components/Main");
 var Search = require("../components/children/Search");
 var Saved = require("../components/children/Saved");
-var Results = require("../components/children/Results");
 
 module.exports = (
   
@@ -31,7 +30,6 @@ module.exports = (
 
       {/* If user selects Info or Chat show the appropriate component */}    
       <Route path="search" component={Search} />
-      <Route path="results" component={Results} />      
       <Route path="saved" component={Saved} />
       {/* If user selects any other path... we get the Info Route */}
       <IndexRoute component={Search} />

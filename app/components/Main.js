@@ -24,7 +24,6 @@ var Main = React.createClass({
 	            <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 	              <ul className="nav navbar-nav navbar-right">
 	                <li><button type="submit" className="btn btn-default">Article Search</button></li>
-	                <li><button type="submit" className="btn btn-default">Results</button></li>
 	                <li><button type="submit" className="btn btn-default">Saved Articles</button></li>
 	              </ul>
 	            </div>

@@ -10,6 +10,7 @@ var ArticleSearch = React.createClass({
 
   //this function will respond to user input
   handleChange: function(event) {
+    console.log("Text changed!");
     //new state is set, following changes in text, has to be object with new values
     var newState = {};
     newState[event.target.id] = event.target.value;
@@ -22,17 +23,11 @@ var ArticleSearch = React.createClass({
     //prevent the HTML from trying to submit a form if the user hits "Enter"
     //instead of clicking the button
     event.preventDefault();
-
+    console.log("works");
     //set the parent to have the search term == this is the function on the Main component, that 
     //lets the child update the parent == because we don't pass from main, but bfrom Search, has to be in Grnadchild component
     this.props.setTerm(this.state.term, this.state.start, this.state.end);
   },
-  //this handles the click on submit to trigger search
-  handleClick: function(article) {
-    console.log(article);
-    //this function saves article in the database
-    helpers.postArticle(article)
-  }
   //render the component
   render: function() {
 

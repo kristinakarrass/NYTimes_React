@@ -35,14 +35,7 @@ var Results = React.createClass({
                   <h3 className="panel-title">Search Results</h3>
                 </div>
                 <div className="panel-body text-center">
-                {this.props.results.map(function(article, i) {
-                  return(
-                    <div key={i} id={i}>
-                      <p>{article.title} - {article.date}</p>
-                      <a href={article.articleURL}>{article.articleURL}</a>
-                    </div>                  
-                    );
-                })}
+
                 </div>
               </div>
             </div>
@@ -54,3 +47,12 @@ var Results = React.createClass({
 
 //export the component back for use in other files
 module.exports = Results;
+
+//                   {this.props.results.map(function(article, i) {
+                //   return(
+                //     <div key={i} id={i}>
+                //       <p>{article.title} - {article.date}</p>
+                //       <a href={article.articleURL}>{article.articleURL}</a>
+                //     </div>               
+                //     );
+                // })}
