@@ -23,8 +23,7 @@ app.use(express.static("public"));
 // -------------------------------------------------
 
 // MongoDB Configuration configuration
-var MONGODB = process.env.MONGODB_URI || "mongodb://localhost/NTYimes_React";
-mongoose.connect(MONGODB);
+mongoose.connect("mongodb://heroku_zhblhtmz:j6nv446tpm330pelcv91vi7e2e@ds043615.mlab.com:43615/heroku_zhblhtmz");
 var db = mongoose.connection;
 
 db.on("error", function(err) {
