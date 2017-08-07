@@ -1,28 +1,45 @@
 {
-  "name": "nyreact",
+  "name": "nytreact",
   "version": "1.0.0",
-  "description": "React app with NYT articles",
-  "main": "public/index.html",
+  "description": "React app that lets the user search for and save articles from the New York Times",
+  "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js",
+    "build": "webpack -w",
+    "dev": "webpack & node server.js"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kristinakarrass/nytreact.git"
+  },
+  "keywords": [
+    "react",
+    "node",
+    "express",
+    "mongoDB"
+  ],
   "author": "Kristina Karrass",
-  "license": "ISC",
-  "dependencies": {
-    "axios": "^0.16.2",
-    "body-parser": "^1.17.2",
-    "express": "^4.15.3",
-    "mongoose": "^4.11.2",
-    "morgan": "^1.8.2",
-    "react": "^0.14.3",
-    "react-dom": "^0.14.3",
-    "react-router": "^2.4.1"
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/kristinakarrass/nytreact/issues"
   },
+  "homepage": "https://github.com/kristinakarrass/nytreact#readme",
   "devDependencies": {
-    "babel-core": "^6.3.13",
-    "babel-loader": "^6.2.0",
-    "babel-preset-es2015": "^6.3.13",
-    "babel-preset-react": "^6.3.13",
+    "axios": "^0.12.0",
+    "babel-core": "^6.9.1",
+    "babel-loader": "^6.2.4",
+    "babel-preset-es2015": "^6.9.0",
+    "babel-preset-react": "^6.5.0",
     "webpack": "^1.13.1"
+  },
+  "dependencies": {
+    "body-parser": "^1.15.1",
+    "express": "^4.13.4",
+    "mongoose": "^4.4.20",
+    "morgan": "^1.7.0",
+    "react": "^15.1.0",
+    "react-dom": "^15.1.0",
+    "react-router": "^2.4.1"
   }
 }

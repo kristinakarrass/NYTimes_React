@@ -4,36 +4,36 @@ var React = require("react");
 //include the react-router module
 var router = require("react-router");
 
-//include the Route component for displaying individual routes
+//include de Route component for displaying individual routes
 var Route = router.Route;
 
 //include the Router component to contain all our Routes
 var Router = router.Router;
 
-//include hashHistory prop to handle routing client side without server
+//Include the hashHistory prop to handle routign client side without a server
 var hashHistory = router.hashHistory;
 
-//include IndexRoute (catch all route)
+//include the IndexRoute (catch-all route)
 var IndexRoute = router.IndexRoute;
 
-//require the high level components
+//Reference the high-level components
 var Main = require("../components/Main");
-var Search = require("../components/children/Search");
 var Saved = require("../components/children/Saved");
+var Search = require("../components/children/Search");
 
+//Export the Routes
 module.exports = (
-  
-  //the high level component is the Router component
-  <Router history={hashHistory}>
 
+  //The high level component is the Router component
+  <Router history={hashHistory}>
     <Route path="/" component={Main}>
 
-      {/* If user selects Info or Chat show the appropriate component */}    
-      <Route path="search" component={Search} />
-      <Route path="saved" component={Saved} />
-      {/* If user selects any other path... we get the Info Route */}
+      {/*if user selects Search or Saved, show the appropriate component */}
+      <Route path="/search" component={Search} />
+      <Route path="/saved" component={Saved} />
+
+      {/* if user selects any other path ... we get the Search component*/}
       <IndexRoute component={Search} />
     </Route>
-
-  </Router>
+   </Router>
 );

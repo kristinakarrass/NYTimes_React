@@ -1,46 +1,67 @@
-//include react
+// Include React as a dependency
 var React = require("react");
-//include the link compontent from React
+// Including the Link component from React Router to navigate within our application without full page reloads
+// https://github.com/ReactTraining/react-router/blob/master/docs/API.md#link
 var Link = require("react-router").Link;
 
-//Creating the Main component
+// Create the Main component
 var Main = React.createClass({
-	//render the function
-	render: function() {
-		return (
-	      <div className="container">
-	        <nav className="navbar navbar-default">
-	          <div className="container-fluid">
-	            <div className="navbar-header">
-	              <button type="button" className="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-	                <span className="sr-only">Toggle navigation</span>
-	                <span className="icon-bar"></span>
-	                <span className="icon-bar"></span>
-	                <span className="icon-bar"></span>
-	              </button>
-	              <a className="navbar-brand" href="#">NYT Article Scrubber</a>
-	            </div>
 
-	            <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-	              <ul className="nav navbar-nav navbar-right">
-	                <li><button type="submit" className="btn btn-default">Article Search</button></li>
-	                <li><button type="submit" className="btn btn-default">Saved Articles</button></li>
-	              </ul>
-	            </div>
-	          </div>
-	        </nav>
-		    <div className="jumbotron">
-			  <h1>New York Times Article Scrubber</h1>
-			  <p>This is a one page React App, that lets you search for articles from the New York Times archives.</p>
-			</div>	        
-			<div className="row">
-	          {/*here we make sure the component is conditionally rendered - default component is the Search component*/}
-	          {this.props.children}
-	        </div>
-	       </div>
-		);
-	}
+  render: function() {
+
+    return (
+      //parent div for all our lower level items
+      <div className="main-container">
+        <div className="container">
+          {/* Navbar */}
+          <nav className="navbar navbar-default" role="navigation">
+            <div className="container-fluid">
+              <div className="navbar-header">
+                <button
+                  type="button"
+                  className="navbar-toggle"
+                  data-toggle="collapse"
+                  data-target=".navbar-ex1-collapse"
+                >
+                  <span className="sr-only">Toggle navigation</span>
+                  <span className="icon-bar"></span>
+                  <span className="icon-bar"></span>
+                  <span className="icon-bar"></span>
+                </button>
+                <Link className="navbar-brand" to="/">NYT-React App</Link>
+              </div>
+
+              <div className="collapse navbar-collapse navbar-ex1-collapse">
+                <ul className="nav navbar-nav navbar-right">
+                  <li><Link to="/search">Search</Link></li>
+                  <li><Link to="/saved">My Articles</Link></li>
+                  <li><a href="https://github.com/kristinakarrass/NYTimes_React" target="blank">GitHub Repo</a></li>
+                </ul>
+              </div>
+            </div>
+          </nav>
+
+          {/* Jumbotron */}
+          <div className="jumbotron">
+            <img className="img-responsive center-block" src="./assets/images/NYT.png" />
+            <h3 className="text-center">Scrape and save New York Times articles.</h3>
+          </div>
+
+
+          {/* area where child components will be displayed */}
+          {this.props.children}
+
+          <footer>
+            <hr />
+            <p>
+              This app is powered by React.js. All content copyright by The New York Times.
+            </p>
+          </footer>
+        </div>
+      </div>
+    );
+  }
 });
 
-//export Main component
+// Export the module back to the route
 module.exports = Main;

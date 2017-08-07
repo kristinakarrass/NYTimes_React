@@ -15,7 +15,7 @@ var ArticleSearch = React.createClass({
     var newState = {};
     newState[event.target.id] = event.target.value;
     this.setState(newState);
-
+    console.log(newState);
   },
 
   //when the user submits...
@@ -27,6 +27,7 @@ var ArticleSearch = React.createClass({
     //set the parent to have the search term == this is the function on the Main component, that 
     //lets the child update the parent == because we don't pass from main, but bfrom Search, has to be in Grnadchild component
     this.props.setTerm(this.state.term, this.state.start, this.state.end);
+    console.log(this.state.term, this.state.start, this.state.end);
   },
   //render the component
   render: function() {
@@ -61,10 +62,10 @@ var ArticleSearch = React.createClass({
                       <div className="col-sm-10">
                         <input 
                           value={this.state.start}
-                          type="date" 
+                          type="number" 
                           className="form-control" 
-                          id="term" 
-                          placeholder="DDMMYYYY"
+                          id="start" 
+                          placeholder="year"
                           onChange={this.handleChange}
                           required
                           />
@@ -75,10 +76,10 @@ var ArticleSearch = React.createClass({
                       <div className="col-sm-10">
                         <input 
                           value={this.state.end}
-                          type="date" 
+                          type="number" 
                           className="form-control" 
                           id="end" 
-                          placeholder="DDMMYYYY"
+                          placeholder="year"
                           onChange={this.handleChange}
                           required
                           />

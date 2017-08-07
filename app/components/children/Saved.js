@@ -1,38 +1,110 @@
+// Include React as a dependency
 var React = require("react");
 
+// Include the Helper (for the saved recall)
+var helpers = require("../../utils/helpers");
+
+// Create the saved component
 var Saved = React.createClass({
 
-	//render the component
-	render: function() {
+  getInitialState: function() {
+    return { savedArticles: "" };
+  },
 
-		return (
-        <div className="container">
-          <div className="row">
-            <div className="col-lg-12">
-              <div className="panel panel-default" >
-                <div className="panel-heading">
-                  <h3 className="panel-title">Saved Articles</h3>
-                </div>
-                <div className="panel-body">
-                 {this.props.results.map(function(articles, i) {
-                   return (
-                    <div key={i} id={i}>
-                      <li className = "list-group-item">
-                       <p>{articles.title} - {articles.date}</p>
-                       <a href={articles.articleURL} target="blank"><button className="btn btn-default">Read Article</button></a>
-                       <button className="btn btn-danger" onClick={this.handleClick(article)}>Save Article</button>
-                      </li>
-                    </div>
-                   );
-                 }.bind(this))}
-                </div>
+  // When this component mounts, get all saved articles from our db
+  componentDidMount: function() {
+    helpers.getSaved().then(function(articleData) {
+      this.setState({ savedArticles: articleData.data });
+      console.log("saved results", articleData.data);
+    }.bind(this));
+  },
+
+  // This code handles the deleting saved articles from our database
+  handleClick: function(item) {
+
+    // Delete the list!
+    helpers.deleteSaved(item.title, item.date, item.url).then(function() {
+
+      // Get the revised list!
+      helpers.getSaved().then(function(articleData) {
+        this.setState({ savedArticles: articleData.data });
+        console.log("saved results", articleData.data);
+      }.bind(this));
+
+    }.bind(this));
+  },
+  // if we do not have saved articles, we render this html
+  renderEmpty: function() {
+    return (
+      <li className="list-group-item">
+        <h3>
+          <span>
+            <em>You don't have any saved articles yet...</em>
+          </span>
+        </h3>
+      </li>
+    );
+  },
+
+  // get saved articles and display them by looping through results with the map function
+  renderArticles: function() {
+    return this.state.savedArticles.map(function(article, index) {
+
+      return (
+        <div key={index}>
+          <li className="list-group-item">
+            <h3>
+              <span>
+                <em>{article.title}</em>
+              </span>
+              <span className="btn-group pull-right">
+                <a href={article.url} rel="noopener noreferrer" target="_blank">
+                  <button className="btn btn-default ">View Article</button>
+                </a>
+                <button className="btn btn-primary" onClick={() => this.handleClick(article)}>Delete</button>
+              </span>
+            </h3>
+            <p>Date Published: {article.date}</p>
+          </li>
+        </div>
+      );
+    }.bind(this));
+  },
+
+  // render our arcticles in their container
+  renderContainer: function() {
+    return (
+      <div className="main-container">
+        <div className="row">
+          <div className="col-lg-12">
+            <div className="panel panel-primary">
+              <div className="panel-heading">
+                <h1 className="panel-title">
+                  <strong>
+                    <i className="fa fa-floppy-o" aria-hidden="true"></i> Saved Articles</strong>
+                </h1>
+              </div>
+              <div className="panel-body">
+                <ul className="list-group">
+                  {this.renderArticles()}
+                </ul>
               </div>
             </div>
           </div>
         </div>
-		);
-	}
+      </div>
+    );
+  },
+
+  render: function() {
+    // If we have no articles, we will return this.renderEmpty() which in turn returns some HTML
+    if (!this.state.savedArticles) {
+      return this.renderEmpty();
+    }
+    // If we have articles, return this.renderContainer() which in turn returns all saves articles
+    return this.renderContainer();
+  }
 });
 
-//export the component back for use in other files
+// Export the module back to the route
 module.exports = Saved;

@@ -1,101 +1,97 @@
-//include server dependencies
+// Include Server Dependencies
 var express = require("express");
 var bodyParser = require("body-parser");
 var logger = require("morgan");
 var mongoose = require("mongoose");
-var path = require("path");
 
-//require Artilce Schema
+// Require Schemas
 var Article = require("./models/Article");
 
-//create instance of Express
+// Create Instance of Express
 var app = express();
-//set the initial prot
-var PORT = process.env.PORT || 3000;
+var PORT = process.env.PORT || 3000; 
 
-//run Morgan for logging 
+// logging with morgan
 app.use(logger("dev"));
-//run body parser
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.text());
 app.use(bodyParser.json({ type: "application/vnd.api+json" }));
-//serving static files from public directory
-app.use(express.static(path.join(__dirname, "public")));
 
-//=====================================================================================
-//MongoDB configuration
+app.use(express.static("public"));
+
+// -------------------------------------------------
+
+// MongoDB Configuration configuration
 var MONGODB = process.env.MONGODB_URI || "mongodb://localhost/NTYimes_React";
 mongoose.connect(MONGODB);
 var db = mongoose.connection;
 
 db.on("error", function(err) {
-	console.log("Mongoose Error: ", err);
+  console.log("Mongoose Error: ", err);
 });
 
 db.once("open", function() {
-	console.log("Mongoose connection successful.");
+  console.log("Mongoose connection successful.");
 });
 
-//=====================================================================================
-//Routes
-//Main route
-app.get("/", function(req, res) {
-	res.sendFile(__dirname + "/public/index.html");
-});
 
-//Find all saved articles
+// -------------------------------------------------
+
+// Route to get all saved articles
 app.get("/api/saved", function(req, res) {
-	//find all records of saved articles -- don't know if I want to limit to 5
-	Article.find({}).sort([["date", "descending"]
-		]).exec(function(err, doc) {
-			if (err) {
-				console.log(err);
-			} else {
-				res.send(doc);
-			}
-		});
-});
 
-//Post articles user chooses to database
-app.post("/api/saved", function(req, res) {
-	console.log("BODY: " + req.body);
-	//we will save the articles title and url to the database and add the current date
-	Article.create({
-		title: req.body.title,
-		articleURL: req.body.articleURL,
-		date: Date.now()
-	}, function(err) {
+  Article.find({})
+    .exec(function(err, doc) {
+
       if (err) {
-      	console.log(err);
-      } else {
-      	res.send("Saved Article");
+        console.log(err);
       }
-	});
+      else {
+        res.send(doc);
+      }
+    });
 });
 
-//route to delete an article from the database
-app.delete("/api/saved/:id", function(req, res) {
-	//find article and delete it from DB
-	Article.findByIdAndRemove({ _id: req.params.id}, function(error, doc) {
-		if (error) {
-			console.log(error);
-		} else {
-			Article.find({}).sort([["date", "descending"]
-				]).exec(function(err, doc) {
-					if (err) {
-						console.log(err);
-					} else {
-					  res.send(doc);
-					}
-				});
-		}
-	});
+// Route to add an article to saved list
+app.post("/api/saved", function(req, res) {
+  var newArticle = new Article(req.body);
+
+  console.log(req.body);
+
+  newArticle.save(function(err, doc) {
+    if (err) {
+      console.log(err);
+    }
+    else {
+      res.send(doc);
+    }
+  });
 });
 
-//route to add a note to an article and route to delete notes from articles
-//======================================================================================
-//Listener
+// Route to delete an article from saved list
+app.delete("/api/saved/", function(req, res) {
+
+  var url = req.param("url");
+
+  Article.find({ url: url }).remove().exec(function(err) {
+    if (err) {
+      console.log(err);
+    }
+    else {
+      res.send("Deleted");
+    }
+  });
+});
+
+// Any non API GET routes will be directed to our React App and handled by React Router
+app.get("*", function(req, res) {
+  res.sendFile(__dirname + "/public/index.html");
+});
+
+
+// -------------------------------------------------
+
 app.listen(PORT, function() {
-	console.log("App listening on PORT: " + PORT);
-})
+  console.log("App listening on PORT: " + PORT);
+});
