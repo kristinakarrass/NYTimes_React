@@ -2,7 +2,7 @@
 
 ## This app lets the user find articles relating to a search term from the New York Times API. 
 
-![NYTApp](/public/assets/images/NYT-React.gif?raw=true "homepage")
+![NYTApp](/public/assets/images/NYTReact.gif?raw=true "homepage")
 
 ## Developed Using
  * MongoDB
